@@ -1,6 +1,6 @@
-# iOS Networking Client
+# Flyce Networking 
 
-This project is some example of API Client I use in my projects.
+Simple networking abstraction over URL Session. Use your API client & requests in an easier way!
 
 ## How to use it
 
