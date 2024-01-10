@@ -10,7 +10,7 @@ To use this package, you'd to have the following main things
 
 Confer to the protocol `URLRequestable`. This is an example of it:
 
-```
+```swift
 struct ExampleRequest: URLRequestable {
     let method: HTTPMethod
     var parameters: [String : Any]?
@@ -40,7 +40,7 @@ struct ExampleRequest: URLRequestable {
 
 The api client that you'll use in your logic layer would be something like this for instance:
 
-```
+```swift
 // Note: JsonParser needs your domain object. The important thing is that it conforms to the `Decodable` protocol!
 
 final class OverviewApiClient {
