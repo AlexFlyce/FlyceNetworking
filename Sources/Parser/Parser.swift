@@ -15,6 +15,9 @@ public protocol ParserProtocol {
 // JSON
 
 public final class JsonParser<ModelType: Decodable>: ParserProtocol {
+    
+    public init() { }
+    
     public func parse(data: Data) throws -> ModelType {
         let jsonDecoder = JSONDecoder()
         let result = try jsonDecoder.decode(ModelType.self, from: data)
@@ -29,6 +32,9 @@ public enum DictionaryParserError: Error {
 }
 
 public final class DictionaryParser: ParserProtocol {
+    
+    public init() { }
+    
     public func parse(data: Data) throws -> [String: Any] {
         let json = try JSONSerialization.jsonObject(with: data, options: [])
         guard let dictionary = json as? [String: Any] else {
