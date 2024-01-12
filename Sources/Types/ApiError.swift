@@ -20,7 +20,7 @@ public enum ApiError: Error {
     case unknownError(error: Error)
 }
 
-extension ApiError {
+public extension ApiError {
     static func mapFromURLSessionError(_ error: Error) -> Self {
         switch (error as NSError).code {
         case -1001:
