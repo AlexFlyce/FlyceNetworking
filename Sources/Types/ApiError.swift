@@ -6,7 +6,7 @@
 
 import Foundation
 
-enum ApiError: Error {
+public enum ApiError: Error {
     case invalidURL(components: URLComponeble)
     case invalidURLRequest(components: URLComponeble)
     case parametersEncoding

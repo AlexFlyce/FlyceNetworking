@@ -6,6 +6,6 @@
 
 import Foundation
 
-enum URLEncoding {
+public enum URLEncoding {
     case json
 }

@@ -6,12 +6,12 @@
 
 import Foundation
 
-enum NetworkResponse {
+public enum NetworkResponse {
     case success
     case failure(error: NetworkResponseError)
 }
 
-enum NetworkResponseError: Error {
+public enum NetworkResponseError: Error {
     case general
     case authentication
     case internalServer
@@ -21,7 +21,7 @@ enum NetworkResponseError: Error {
     case noData
     case unableToDecode
 
-    var localizedDescription: String {
+    public var localizedDescription: String {
         switch self {
         case .general: return "Network request failed."
         case .authentication: return "You need to be authenticated first."

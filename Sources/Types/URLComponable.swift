@@ -6,7 +6,7 @@
 
 import Foundation
 
-protocol URLComponeble {
+public protocol URLComponeble {
     var scheme: String { get }
     var domain: String { get }
     var port: Int? { get }
@@ -16,7 +16,7 @@ protocol URLComponeble {
     func urlComponents() throws -> URLComponents
 }
 
-extension URLComponeble {
+public extension URLComponeble {
 
     func endPoint() -> String {
         if let port = port {

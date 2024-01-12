@@ -6,15 +6,17 @@
 
 import Foundation
 
-final class ApiClient: BaseApiClient {
+public final class ApiClient: BaseApiClient {
     private let session: URLSession
 
-    init(session: URLSession = .shared) {
+    public init(session: URLSession = .shared) {
         self.session = session
     }
 
-    func call<ModelType, ParserType: ParserProtocol>(request: URLRequestable,
-                                                     parser: ParserType) async throws -> ModelType where ParserType.ModelType == ModelType {
+    public func call<ModelType, ParserType: ParserProtocol>(
+        request: URLRequestable,
+        parser: ParserType) async throws
+    -> ModelType where ParserType.ModelType == ModelType {
         guard let url = try request.asURLRequest().url else { throw ApiError.invalidURLRequest(components: request) }
         do {
             let (data, response) = try await self.session.data(from: url)

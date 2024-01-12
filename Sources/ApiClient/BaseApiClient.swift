@@ -6,11 +6,11 @@
 
 import Foundation
 
-protocol BaseApiClient: AnyObject {
+public protocol BaseApiClient: AnyObject {
     func handleNetworkResponse(_ response: HTTPURLResponse) -> NetworkResponse
 }
 
-extension BaseApiClient {
+public extension BaseApiClient {
     func handleNetworkResponse(_ response: HTTPURLResponse) -> NetworkResponse {
         switch response.statusCode {
         case 200...299: return .success

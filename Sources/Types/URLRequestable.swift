@@ -6,7 +6,7 @@
 
 import Foundation
 
-protocol URLRequestable: URLComponeble {
+public protocol URLRequestable: URLComponeble {
     var method: HTTPMethod { get }
     var parameters: [String: Any]? { get set }
     var encoding: URLEncoding { get }
@@ -15,7 +15,7 @@ protocol URLRequestable: URLComponeble {
     func asURLRequest() throws -> URLRequest
 }
 
-extension URLRequestable {
+public extension URLRequestable {
     mutating func addParameter(key: String, value: String) {
         if parameters == nil {
             self.parameters = [String: String]()

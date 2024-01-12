@@ -6,7 +6,7 @@
 
 import Foundation
 
-protocol ParserProtocol {
+public protocol ParserProtocol {
     associatedtype ModelType
 
     func parse(data: Data) throws -> ModelType
@@ -14,8 +14,8 @@ protocol ParserProtocol {
 
 // JSON
 
-final class JsonParser<ModelType: Decodable>: ParserProtocol {
-    func parse(data: Data) throws -> ModelType {
+public final class JsonParser<ModelType: Decodable>: ParserProtocol {
+    public func parse(data: Data) throws -> ModelType {
         let jsonDecoder = JSONDecoder()
         let result = try jsonDecoder.decode(ModelType.self, from: data)
         return result
@@ -24,12 +24,12 @@ final class JsonParser<ModelType: Decodable>: ParserProtocol {
 
 // Dictionary
 
-enum DictionaryParserError: Error {
+public enum DictionaryParserError: Error {
     case canNotCastJsonObjectToDictionary
 }
 
-final class DictionaryParser: ParserProtocol {
-    func parse(data: Data) throws -> [String: Any] {
+public final class DictionaryParser: ParserProtocol {
+    public func parse(data: Data) throws -> [String: Any] {
         let json = try JSONSerialization.jsonObject(with: data, options: [])
         guard let dictionary = json as? [String: Any] else {
             throw DictionaryParserError.canNotCastJsonObjectToDictionary
