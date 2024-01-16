@@ -17,9 +17,9 @@ public final class ApiClient: BaseApiClient {
         request: URLRequestable,
         parser: ParserType) async throws
     -> ModelType where ParserType.ModelType == ModelType {
-        guard let url = try request.asURLRequest().url else { throw ApiError.invalidURLRequest(components: request) }
+        guard try request.asURLRequest().url != nil else { throw ApiError.invalidURLRequest(components: request) }
         do {
-            let (data, response) = try await self.session.data(from: url)
+            let (data, response) = try await self.session.data(for: request.asURLRequest())
             guard let httpUrlResponse = response as? HTTPURLResponse else {
                 throw ApiError.missingResponse
             }
