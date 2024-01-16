@@ -8,11 +8,14 @@ import Foundation
 
 public protocol URLRequestable: URLComponeble {
     var method: HTTPMethod { get }
-    var parameters: [String: Any]? { get set }
     var encoding: URLEncoding { get }
-    var allHTTPHeaderFields: [String : String]? { get set }
-
+    
+    var parameters: [String: Any]? { get set }
     mutating func addParameter(key: String, value: String)
+    
+    var allHTTPHeaderFields: [String : String]? { get set }
+    mutating func addAuthentication(key: String, value: String)
+
     func asURLRequest() throws -> URLRequest
 }
 
@@ -36,10 +39,16 @@ public extension URLRequestable {
         urlRequest.allHTTPHeaderFields = self.allHTTPHeaderFields
         return urlRequest
     }
-}
-
-// Defaul Implementation
-
-public extension URLRequestable {
-    var allHTTPHeaderFields: [String : String]? { nil }
+    
+    mutating func addAuthentication(key: String, value: String) {
+        guard let passwordStringData = "\(key):\(value)".data(using: .utf8) else {
+            return
+        }
+        let encodedCredential = passwordStringData.base64EncodedString(options: .lineLength64Characters)
+        if self.allHTTPHeaderFields == nil {
+            self.allHTTPHeaderFields = [String: String]()
+        }
+        let authKey = "Authentication"
+        self.allHTTPHeaderFields?[authKey] = "Basic \(encodedCredential)"
+    }
 }
