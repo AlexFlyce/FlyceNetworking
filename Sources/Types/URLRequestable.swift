@@ -10,6 +10,7 @@ public protocol URLRequestable: URLComponeble {
     var method: HTTPMethod { get }
     var parameters: [String: Any]? { get set }
     var encoding: URLEncoding { get }
+    var allHTTPHeaderFields: [String : String]? { get set }
 
     mutating func addParameter(key: String, value: String)
     func asURLRequest() throws -> URLRequest
@@ -32,6 +33,13 @@ public extension URLRequestable {
         }
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = method.rawValue
+        urlRequest.allHTTPHeaderFields = self.allHTTPHeaderFields
         return urlRequest
     }
+}
+
+// Defaul Implementation
+
+public extension URLRequestable {
+    var allHTTPHeaderFields: [String : String]? { nil }
 }
