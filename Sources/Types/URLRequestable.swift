@@ -44,11 +44,11 @@ public extension URLRequestable {
         guard let passwordStringData = "\(key):\(value)".data(using: .utf8) else {
             return
         }
-        let encodedCredential = passwordStringData.base64EncodedString(options: .lineLength64Characters)
+        let encodedCredential = passwordStringData.base64EncodedString()
         if self.allHTTPHeaderFields == nil {
             self.allHTTPHeaderFields = [String: String]()
         }
-        let authKey = "Authentication"
+        let authKey = "Authorization"
         self.allHTTPHeaderFields?[authKey] = "Basic \(encodedCredential)"
     }
 }
