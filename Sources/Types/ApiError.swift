@@ -8,6 +8,7 @@ import Foundation
 
 public enum ApiError: Error {
     case invalidURL(components: URLComponeble)
+    case invalidURL(urlString: String)
     case invalidURLRequest(components: URLComponeble)
     case parametersEncoding
     case responseValidation(error: Error?)
