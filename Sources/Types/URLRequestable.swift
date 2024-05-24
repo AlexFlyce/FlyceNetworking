@@ -17,6 +17,7 @@ public protocol URLRequestable: URLComponeble {
     mutating func addAuthentication(key: String, value: String)
 
     func asURLRequest() throws -> URLRequest
+    func asURL() throws -> URL
 }
 
 public extension URLRequestable {
@@ -28,16 +29,21 @@ public extension URLRequestable {
     }
 
     func asURLRequest() throws -> URLRequest {
+        let url = try self.asURL()
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = method.rawValue
+        urlRequest.allHTTPHeaderFields = self.allHTTPHeaderFields
+        return urlRequest
+    }
+    
+    func asURL() throws -> URL {
         var components = try self.urlComponents()
         let queryItems = self.parameters?.keys.map { URLQueryItem(name: $0, value: self.parameters?[$0] as? String) }
         components.queryItems = queryItems
         guard let url = components.url else {
             throw ApiError.invalidURL(components: self)
         }
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = method.rawValue
-        urlRequest.allHTTPHeaderFields = self.allHTTPHeaderFields
-        return urlRequest
+        return url
     }
     
     mutating func addAuthentication(key: String, value: String) {
